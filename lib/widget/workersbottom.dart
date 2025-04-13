@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:job_project/const/core/color.dart';
+import 'package:job_project/jobSeeker/applied.dart';
+import 'package:job_project/jobSeeker/apply.dart';
 import 'package:job_project/jobSeeker/profile.dart';
 import 'package:job_project/jobSeeker/saveJob.dart';
 import 'package:job_project/jobSeeker/joblist.dart';
@@ -23,7 +25,8 @@ class _CompanybottomState extends State<Workersbottom> {
     
     List<Widget> pages = [
       JobListScreen(),
-     SavedJobsScreen(),
+      SavedJobsScreen(),
+      AppliedJobsScreen(),
       JobSeekerProfileScreen(userId:userId,),
       
     ];
@@ -39,8 +42,9 @@ class _CompanybottomState extends State<Workersbottom> {
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment, size: 30), label: "Exam"),
-          BottomNavigationBarItem(icon: Icon(Icons.feedback, size: 30), label: "Feedback"),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark, size: 30), label: "Exam"),
+          BottomNavigationBarItem(icon: Icon(Icons.inbox, size: 30), label: "Feedback"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: "Exam"),
         ],
         onTap: (index) {
           setState(() {

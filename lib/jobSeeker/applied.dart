@@ -1,11 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:job_project/const/core/color.dart';
 import 'package:job_project/recruiter/application.dart';
+import 'package:job_project/widget/workersbottom.dart';
 
 class JobApplicationScreen extends StatefulWidget {
   final String jobId;
-  final String recruiterId; // Recruiter's unique ID
+  final String recruiterId; 
 
   JobApplicationScreen({required this.jobId, required this.recruiterId});
 
@@ -14,10 +18,10 @@ class JobApplicationScreen extends StatefulWidget {
 }
 
 class _JobApplicationScreenState extends State<JobApplicationScreen> {
-  String _applicationStatus = "Not Applied"; // Default status
-  String _jobTitle = "Loading..."; // Default job title
-  String _userEmail = ""; // User email for display
-  String _userId = ""; // User ID
+  String _applicationStatus = "Not Applied"; 
+  String _jobTitle = "Loading..."; 
+  String _userEmail = ""; 
+  String _userId = "";
 
   @override
   void initState() {
@@ -27,7 +31,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     _fetchApplicationStatus();
   }
 
-  // 🔹 Initialize User ID & Email
+ 
   void _initializeUser() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -38,21 +42,21 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     }
   }
 
-  // 🔹 Fetch Job Title
+  // Fetch Job Title
   Future<void> _fetchJobDetails() async {
     DocumentSnapshot jobSnapshot =
         await FirebaseFirestore.instance.collection('jobs').doc(widget.jobId).get();
 
     if (jobSnapshot.exists) {
       setState(() {
-        _jobTitle = jobSnapshot['title'] ?? "Unknown Job"; // Get job title
+        _jobTitle = jobSnapshot['title'] ?? "Unknown Job"; 
       });
     }
   }
 
-  // 🔹 Fetch Job Application Status
+  //  Fetch Job Application Status
   Future<void> _fetchApplicationStatus() async {
-    if (_userId.isEmpty) return; // Ensure _userId is set before querying
+    if (_userId.isEmpty) return; 
 
     DocumentSnapshot application = await FirebaseFirestore.instance
         .collection('job_applications')
@@ -66,7 +70,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     }
   }
 
-  // 🔹 Apply for Job & Move Request to Recruiter
+  //  Apply for Job & Move Request to Recruiter
   Future<void> _applyForJob() async {
     await FirebaseFirestore.instance
         .collection('job_applications')
@@ -74,9 +78,9 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         .set({
       'userId': _userId,
       'jobId': widget.jobId,
-      'recruiterId': widget.recruiterId, // Save Recruiter ID
-      'userEmail': _userEmail, // Save user email
-      'jobTitle': _jobTitle, // Save job title
+      'recruiterId': widget.recruiterId,
+      'userEmail': _userEmail, 
+      'jobTitle': _jobTitle, 
       'status': "Applied",
       'timestamp': FieldValue.serverTimestamp(),
     });
@@ -86,38 +90,52 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("✅ Job Application Submitted!")),
+      SnackBar(content: Text(" Job Application Submitted!")),
     );
 
-    // ✅ Navigate to Recruiter's Applications Page (Automatically)
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => RecruiterJobApplicationsScreen(recruiterId: widget.recruiterId),
-    //   ),
-    // );
+    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Job Application Status")),
+      backgroundColor: Design.baseColor,
+      appBar: AppBar(
+        backgroundColor: Design.buttonColor,
+        title: Text("Job Application Status",style: TextStyle(color: Design.bottom ),),
+         leading: IconButton(onPressed: (){
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>Workersbottom()));
+        }, icon: Icon(Icons.arrow_back_ios_new,color: Design.bottom)),),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Job Title: $_jobTitle",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 150,),
+            Center(
+              child: Text(" $_jobTitle",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
             SizedBox(height: 10),
-            Text("Application Status: $_applicationStatus",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // SizedBox(width: 20,),
+                Text("Application Status:",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+                    Text(" $_applicationStatus",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
             SizedBox(height: 20),
+            
 
-            if (_applicationStatus == "Not Applied") // Show Apply button
-              ElevatedButton(
-                onPressed: _applyForJob,
-                child: Text("Apply for Job"),
+            if (_applicationStatus == "Not Applied") 
+              Center(
+                child: ElevatedButton(
+                  style:ElevatedButton.styleFrom(backgroundColor: Design.buttonColor),
+                  onPressed: _applyForJob,
+                  child: Text("Apply for Job", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Design.bottom)),
+                ),
               ),
           ],
         ),

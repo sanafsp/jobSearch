@@ -1,18 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: OnboardingScreen(),
-    );
-  }
-}
 
 class OnboardingScreen extends StatelessWidget {
   @override
@@ -32,10 +20,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: Image.asset(
-                  'assets/study.png', // Replace with your image asset
-                  height: 200,
-                ),
+              
               ),
             ),
           ),
@@ -46,37 +31,6 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Learning is Everything",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Learning with Pleasure with Dear Programmers, Wherever you are.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigate to the next screen
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    ),
-                    child: Text(
-                      "Get Start",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -87,4 +41,21 @@ class OnboardingScreen extends StatelessWidget {
   }
 }
 
+  // // ✅ Skills Section
+  //           if (jobData['skills'] != null && (jobData['skills'] as List).isNotEmpty) ...[
+  //             Text("💡 Skills Required:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+  //             SizedBox(height: 8),
+  //             Wrap(
+  //               spacing: 8,
+  //               children: (jobData['skills'] as List).map<Widget>((skill) => Chip(label: Text(skill))).toList(),
+  //             ),
+  //             SizedBox(height: 16),
+  //           ],
 
+  //           // ✅ Education Section
+  //           if (jobData['education'] != null) ...[
+  //             Text("🎓 Education Required:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+  //             SizedBox(height: 8),
+  //             Text(jobData['education'], style: TextStyle(fontSize: 16)),
+  //             SizedBox(height: 16),
+  //           ],

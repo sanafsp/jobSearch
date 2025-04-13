@@ -18,13 +18,12 @@ class _CompanybottomState extends State<Companybottom> {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ Get recruiterId from FirebaseAuth (current user ID)
     String recruiterId = FirebaseAuth.instance.currentUser?.uid ?? "";
 
     List<Widget> pages = [
       CompanyJobsScreen(),
       PostJobScreen(),
-      RecruiterJobApplicationsScreen(recruiterId: recruiterId), // ✅ Pass recruiterId
+      RecruiterJobApplicationsScreen(recruiterId: recruiterId), 
       ProfileScreen(),
     ];
 
@@ -39,9 +38,9 @@ class _CompanybottomState extends State<Companybottom> {
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment, size: 30), label: "Exam"),
-          BottomNavigationBarItem(icon: Icon(Icons.feedback, size: 30), label: "Feedback"),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment, size: 30), label: "Exam"),
+          BottomNavigationBarItem(icon: Icon(Icons.post_add, size: 30), label: "Exam"),
+          BottomNavigationBarItem(icon: Icon(Icons.inbox, size: 30), label: "Feedback"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: "Exam"),
         ],
         onTap: (index) {
           setState(() {

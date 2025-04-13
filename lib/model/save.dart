@@ -6,7 +6,7 @@ class BookmarkService {
 
   Future<void> saveJob(String jobId, String title, String company) async {
     if (jobId.isEmpty) {
-      print("⚠ Skipping save due to invalid job ID.");
+      print("Skipping save due to invalid job ID.");
       return;
     }
 
@@ -23,9 +23,9 @@ class BookmarkService {
       savedJobs.add(jobId);
       await prefs.setStringList('saved_jobs', savedJobs);
 
-      print("✅ Job Saved: $jobId");
+      print(" Job Saved: $jobId");
     } catch (e) {
-      print("❌ Error saving job: $e");
+      print(" Error saving job: $e");
     }
   }
 }

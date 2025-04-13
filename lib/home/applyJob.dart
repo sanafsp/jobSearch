@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class JobApplicationService {
   Future<void> applyForJob(String jobId, String company, String title) async {
     try {
-      String userId = "12345"; // Replace with actual user ID from authentication
+      String userId = "12345"; 
 
       await FirebaseFirestore.instance
           .collection("jobApplications")

@@ -21,7 +21,7 @@ class _ResumeScreenState extends State<ResumeScreen> {
     _loadResume();
   }
 
-  // 🔹 Load Resume from SharedPreferences
+  //   Resume from SharedPreferences
   Future<void> _loadResume() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -29,11 +29,11 @@ class _ResumeScreenState extends State<ResumeScreen> {
       _experience = prefs.getString('resume_experience') ?? '';
       _skills = prefs.getString('resume_skills') ?? '';
       _education = prefs.getString('resume_education') ?? '';
-      _isEditing = _name.isNotEmpty; // If data exists, enable editing mode
+      _isEditing = _name.isNotEmpty; 
     });
   }
 
-  // 🔹 Save Resume to Firebase Firestore & SharedPreferences
+  //  Save Resume to Firebase Firestore & SharedPreferences
   Future<void> _saveResume() async {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
@@ -54,16 +54,16 @@ class _ResumeScreenState extends State<ResumeScreen> {
       prefs.setString('resume_education', _education);
 
       setState(() {
-        _isEditing = true; // Enable editing mode after saving
+        _isEditing = true; 
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("✅ Resume Saved Successfully!")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(" Resume Saved Successfully!")));
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("❌ Failed to Save Resume!")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(" Failed to Save Resume!")));
     }
   }
 
-  // 🔹 Delete Resume from Firebase & SharedPreferences
+  //  Delete Resume from Firebase & SharedPreferences
   Future<void> _deleteResume() async {
     await FirebaseFirestore.instance.collection('resumes').doc('USER_ID').delete();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -80,7 +80,7 @@ class _ResumeScreenState extends State<ResumeScreen> {
       _isEditing = false;
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("❌ Resume Deleted Successfully!")));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(" Resume Deleted Successfully!")));
   }
 
   @override
