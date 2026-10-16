@@ -7,7 +7,7 @@
     <application
         android:label="Smart Search"
         android:name="${applicationName}"
-        android:icon="@mipmap/job">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

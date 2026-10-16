@@ -1,0 +1,1 @@
+enum AdminScreenType{interviewPrep, mockInterview, qAdA}
